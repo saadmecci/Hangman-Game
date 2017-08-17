@@ -2,17 +2,15 @@ var wordBank = ["DANERYS TARGARYEN", "VISERYS TARGARYEN", "RHAEGAR TARGARYEN", "
     "TYRION LANNISTER", "JAIME LANNISTER", "CERSEI LANNISTER", "TYWIN LANNISTER", "MARGAERY TYRELL", "OLENNA TYRELL", "DAVOS SEAWORTH",
     "ARTHUR DAYNE", "THEON GREYJOY", "EURON GREYJOY", "YARA GREYJOY", "BRONN", "RAMSAY BOLTON", "ROOSE BOLTON", "STANNIS BARATHEON",
     "ROBERT BARATHEON", "RENLY BARATHEON", "PETYR BAELISH", "VARYS", "JORAH MORMONT", "SAMWELL TARLY", "EDDARD STARK", "CATELYN STARK",
-    "BERIC DONDARRION"
-]
+    "BERIC DONDARRION"];
 
+var word = "";
 
 var wins = 0;
 
 var chances = 10;
 
-var word = wordBank[Math.floor(Math.random() * wordBank.length)];
-
-var wordLength = word.length;
+var wordLength = 0;
 
 var gameStatus = 0;
 
@@ -20,24 +18,35 @@ var blanks = "";
 
 var blanksData = "";
 
+var blanksSet = "";
+
 function wordSelector(resetGame) {
+
+	word = wordBank[Math.floor(Math.random() * wordBank.length)];
+
+	wordLength = word.length;
 
     for (var i = 0; i < wordLength; i++) {
         if (word.charAt(i) === " ") {
             blanks += "&nbsp&nbsp&nbsp";
-            blanksData += "   ";
+            blanksData += " ";
         } else {
             blanks += "_ ";
-            blanksData += "_ "
+            blanksData += "_"
         }
     }
+
+  	blanksSet = blanksData.split("");
 
     gameStatus = 1;
 
 }
 
-
 document.onkeyup = function(event) {
+
+	if (chances === 0) {
+		return
+	}
 
 	if (gameStatus === 0) {
         wordSelector();
@@ -51,7 +60,7 @@ document.onkeyup = function(event) {
 
     console.log(word);
 
-    var blanksSet = blanksData.split("");
+    console.log(blanksSet.length);
 
     for (var j = 0; j < blanksSet.length; j++) {
         if (userGuess === word.charAt(j)) {
@@ -63,7 +72,7 @@ document.onkeyup = function(event) {
         chances--;
     }
 
-    var blanks = blanksSet.join("");
+    blanks = display(blanksSet);
 
 	var html = 
 
@@ -75,6 +84,28 @@ document.onkeyup = function(event) {
 
 	document.querySelector("#game").innerHTML = html;
 
+//record splicing, 
+//also do check else if number the numbers of time splice has happened is equal to word length
+//reset game status to 0
+//query select to provide you win message to continue
+//get rid of data from each round of play
+
 }
+
+function display (set) {
+	var display = "";
+	for (var i = 0; i < set.length; i++) {
+		if (set[i] === "_") {
+			display += "_ ";
+		}	else if (set[i] != " ") {
+			display += set[i] + " ";
+		}
+			else {
+			display += "&nbsp&nbsp&nbsp";
+		}
+	}
+	return display;
+}
+
 
 

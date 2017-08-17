@@ -28,5 +28,3 @@ Game of Thrones theme
 
 13. Game records this as a win and adds 1 to tally.
 
-14. 
-
