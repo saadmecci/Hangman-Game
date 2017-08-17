@@ -18,13 +18,17 @@ var gameStatus = 0;
 
 var blanks = "";
 
+var blanksData = "";
+
 function wordSelector(resetGame) {
 
     for (var i = 0; i < wordLength; i++) {
         if (word.charAt(i) === " ") {
             blanks += "&nbsp&nbsp&nbsp";
+            blanksData += "   ";
         } else {
             blanks += "_ ";
+            blanksData += "_ "
         }
     }
 
@@ -47,19 +51,19 @@ document.onkeyup = function(event) {
 
     console.log(word);
 
-    var wordSet = word.split("");
+    var blanksSet = blanksData.split("");
 
-    console.log(wordSet);
-
-    for (var j = 0; j < wordSet.length; j++) {
-        if (userGuess === wordSet[j]) {
-        	wordSet.splice(j, 1, userGuess);
+    for (var j = 0; j < blanksSet.length; j++) {
+        if (userGuess === word.charAt(j)) {
+        	blanksSet.splice(j, 1, userGuess);
         }
     }
 
-    if (wordSet.indexOf(userGuess) === -1) {
+    if (word.indexOf(userGuess) === -1) {
         chances--;
     }
+
+    var blanks = blanksSet.join("");
 
 	var html = 
 
