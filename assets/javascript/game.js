@@ -20,6 +20,8 @@ var blanksData = "";
 
 var blanksSet = "";
 
+var winCountdown = "";
+
 function wordSelector(resetGame) {
 
 	word = wordBank[Math.floor(Math.random() * wordBank.length)];
@@ -38,6 +40,8 @@ function wordSelector(resetGame) {
 
   	blanksSet = blanksData.split("");
 
+    winCountdown = blanksSet.length;
+
     gameStatus = 1;
 
 }
@@ -54,18 +58,33 @@ document.onkeyup = function(event) {
 
 		}
 
+    console.log(word);
+
+    var userLettersGuessed = [""];
+
     var userGuess = event.key;
 
     var userGuess = userGuess.toUpperCase();
 
-    console.log(word);
+    userLettersGuessed.push(userGuess);
 
-    console.log(blanksSet.length);
+    console.log(userLettersGuessed);
+
+    console.log(winCountdown);
 
     for (var j = 0; j < blanksSet.length; j++) {
         if (userGuess === word.charAt(j)) {
         	blanksSet.splice(j, 1, userGuess);
+            winCountdown--;
+            console.log(winCountdown);
         }
+    }
+
+    console.log(winCountdown);
+
+    if (winCountdown === 0) {
+        wins++;
+        wordSelector();
     }
 
     if (word.indexOf(userGuess) === -1) {
@@ -83,12 +102,6 @@ document.onkeyup = function(event) {
 	"<p> Chances: " + chances + "</p>";
 
 	document.querySelector("#game").innerHTML = html;
-
-//record splicing, 
-//also do check else if number the numbers of time splice has happened is equal to word length
-//reset game status to 0
-//query select to provide you win message to continue
-//get rid of data from each round of play
 
 }
 
@@ -109,3 +122,9 @@ function display (set) {
 
 
 
+
+//record splicing, 
+//also do check else if number the numbers of time splice has happened is equal to word length
+//reset game status to 0
+//query select to provide you win message to continue
+//get rid of data from each round of play
