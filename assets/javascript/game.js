@@ -98,6 +98,9 @@ document.onkeyup = function(event) {
         wins++;
         gameStatus: 0;
         word = "";
+        blanks = "";
+        blanksData = "";
+        blanksSet = "";
         wordSelector();
     }
 
@@ -123,4 +126,3 @@ document.onkeyup = function(event) {
 }
 
 
-//get rid of data from each round of play
