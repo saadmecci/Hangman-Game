@@ -22,6 +22,8 @@ var blanksSet = "";
 
 var winCountdown = "";
 
+var wrongLetters = [];
+
 function wordSelector(resetGame) {
 
 	word = wordBank[Math.floor(Math.random() * wordBank.length)];
@@ -81,7 +83,7 @@ document.onkeyup = function(event) {
         
     }
 
-    var userLettersGuessed = [""];
+    var userLettersGuessed = [];
 
     var userGuess = userGuess.toUpperCase();
 
@@ -106,6 +108,10 @@ document.onkeyup = function(event) {
 
     if (word.indexOf(userGuess) === -1) {
         chances--;
+    }
+
+    if (userLettersGuessed.indexOf(userGuess) === -1) {
+        chances++;
     }
 
     if (chances === 0) {
