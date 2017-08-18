@@ -22,7 +22,7 @@ var blanksSet = "";
 
 var winCountdown = "";
 
-var wrongLetters = [];
+var userLettersGuessed = [];
 
 function wordSelector(resetGame) {
 
@@ -83,11 +83,7 @@ document.onkeyup = function(event) {
         
     }
 
-    var userLettersGuessed = [];
-
     var userGuess = userGuess.toUpperCase();
-
-    userLettersGuessed.push(userGuess);
 
     for (var j = 0; j < blanksSet.length; j++) {
         if (userGuess === word.charAt(j)) {
@@ -106,12 +102,9 @@ document.onkeyup = function(event) {
         wordSelector();
     }
 
-    if (word.indexOf(userGuess) === -1) {
+    if (word.indexOf(userGuess) === -1 && userLettersGuessed.indexOf(userGuess) === -1) {
         chances--;
-    }
-
-    if (userLettersGuessed.indexOf(userGuess) === -1) {
-        chances++;
+        userLettersGuessed.push(userGuess);
     }
 
     if (chances === 0) {
