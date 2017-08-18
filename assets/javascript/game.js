@@ -64,12 +64,13 @@ function display (set) {
 
 document.onkeyup = function(event) {
 
+    console.log(word);
+
     var userGuess = event.key;
 
 	if (chances === 0) {
 		return
 	}
-
 
     if (userGuess === " " ) {
 
@@ -95,11 +96,17 @@ document.onkeyup = function(event) {
 
     if (winCountdown === 0) {
         wins++;
+        gameStatus: 0;
+        word = "";
         wordSelector();
     }
 
     if (word.indexOf(userGuess) === -1) {
         chances--;
+    }
+
+    if (chances === 0) {
+        alert("you lose!");
     }
 
     blanks = display(blanksSet);
@@ -116,8 +123,4 @@ document.onkeyup = function(event) {
 }
 
 
-
-
-//reset game status to 0
-//query select to provide you win message to continue
 //get rid of data from each round of play
